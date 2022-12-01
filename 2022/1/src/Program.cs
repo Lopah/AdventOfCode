@@ -22,7 +22,8 @@ while (!sr.EndOfStream)
     currentElf.AddItem(new Item(int.Parse(item)));
 }
 
-Console.WriteLine(elves.MaxBy(e => e.TotalCalories).TotalCalories);
+var sortedElves = elves.OrderByDescending(e => e.TotalCalories).ToList();
 
+Console.WriteLine(sortedElves.First().TotalCalories);
 
-Console.WriteLine(elves.OrderByDescending(e => e.TotalCalories).Take(3).Sum(e => e.TotalCalories));
+Console.WriteLine(sortedElves.Take(3).Sum(e => e.TotalCalories));
