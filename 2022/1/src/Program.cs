@@ -7,7 +7,8 @@ using AdventOfCode._2022.Day1;
 using var fs = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "Input.txt"), FileMode.Open);
 using var sr = new StreamReader(fs);
 
-var elves = new List<Elf>();
+var elves = new List<KeyValuePair<int, Elf>>();
+var sorter = new ElfSorter();
 var currentElf = new Elf();
 
 while (!sr.EndOfStream)
@@ -15,15 +16,14 @@ while (!sr.EndOfStream)
     var item = sr.ReadLine();
     if (string.IsNullOrEmpty(item))
     {
-        elves.Add(currentElf);
+        sorter.Insert(elves, new KeyValuePair<int, Elf>(currentElf.TotalCalories, currentElf));
         currentElf = new Elf();
         continue;
     }
-    currentElf.AddItem(new Item(int.Parse(item)));
+
+    currentElf.AddItem(int.Parse(item));
 }
 
-var sortedElves = elves.OrderByDescending(e => e.TotalCalories).ToList();
+Console.WriteLine(elves.First().Value.TotalCalories);
 
-Console.WriteLine(sortedElves.First().TotalCalories);
-
-Console.WriteLine(sortedElves.Take(3).Sum(e => e.TotalCalories));
+Console.WriteLine(elves.Take(3).Sum(e => e.Key));

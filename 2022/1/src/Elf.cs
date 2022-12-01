@@ -5,18 +5,10 @@ namespace AdventOfCode._2022.Day1;
 
 public struct Elf
 {
-    public ICollection<Item> Items { get; }
-
-    public Elf()
+    public int TotalCalories { get; private set; }
+    
+    public void AddItem(int calories)
     {
-        Items = new List<Item>();
+        TotalCalories += calories;
     }
-
-
-    public void AddItem(Item item)
-    {
-        Items.Add(item);
-    }
-
-    public decimal TotalCalories => Items.Sum(e => e.Calories);
 }
